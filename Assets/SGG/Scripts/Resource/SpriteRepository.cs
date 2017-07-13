@@ -21,12 +21,19 @@ namespace SGG.RTS.Resource
    {
       #region Nested types
 
+      public enum SpriteType
+      {
+         MAIN,
+         GLOW
+      }
+
       [Serializable]
       public struct StaveUnitEntry
       {
          public UnitFunction Function;
          public NoteValue Value;
          public Sprite MainSprite;
+         public Sprite GlowSprite;
       }
 
       #endregion
@@ -52,10 +59,11 @@ namespace SGG.RTS.Resource
          Instance = this;
       }
 
-      public Sprite GetStaveUnitSprite(UnitFunction a_Function, NoteValue a_Value)
+      public Sprite GetStaveUnitSprite(UnitFunction a_Function, NoteValue a_Value, SpriteType a_Type)
       {
-         return StaveUnits.First(a_Entry => a_Entry.Function == a_Function &&
-                                            a_Entry.Value == a_Value).MainSprite;
+         var spriteEntry = StaveUnits.First(a_Entry => a_Entry.Function == a_Function &&
+                                                       a_Entry.Value == a_Value);
+         return a_Type == SpriteType.MAIN ? spriteEntry.MainSprite : spriteEntry.GlowSprite;
       }
 
       #endregion

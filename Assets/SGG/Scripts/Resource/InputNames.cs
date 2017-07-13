@@ -17,7 +17,9 @@ namespace SGG.RTS.Resource
       public const string CAMERA_HORIZONTAL_MOVE = "Camera Horizontal Move";
       public const string CAMERA_VERTICAL_MOVE = "Camera Vertical Move";
       public const string CAMERA_ZOOM = "Camera Zoom";
-      
+
+      public const string LEFT_CLICK = "Left Click";
+      public const string RIGHT_CLICK = "Right Click";
       public const string MIDDLE_CLICK = "Middle Click";
 
       #endregion

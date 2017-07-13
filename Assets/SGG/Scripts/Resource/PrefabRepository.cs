@@ -25,6 +25,7 @@ namespace SGG.RTS.Resource
       #region Public fields
 
       public GameObject TestUnit;
+      public GameObject SelectionBox;
 
       #endregion
 

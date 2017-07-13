@@ -30,6 +30,12 @@ namespace SGG.RTS
          set { GetComponent<Renderer>().material.color = value; }
       }
 
+      public Color GlowColor
+      {
+         get { return transform.GetChild(0).GetComponentInChildren<Renderer>().material.color; }
+         set { transform.GetChild(0).GetComponentInChildren<Renderer>().material.color = value; }
+      }
+
       public Vector2 Position
       {
          get
