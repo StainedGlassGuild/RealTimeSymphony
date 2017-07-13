@@ -3,22 +3,38 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: InputNames.cs
+// File: PrefabRepository.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+using JetBrains.Annotations;
+
+using UnityEngine;
+
 namespace SGG.RTS.Resource
 {
-   public static class InputNames
+   public sealed class PrefabRepository : MonoBehaviour
    {
-      #region Compile-time constants
+      #region Static fields
 
-      public const string CAMERA_HORIZONTAL_MOVE = "Camera Horizontal Move";
-      public const string CAMERA_VERTICAL_MOVE = "Camera Vertical Move";
-      public const string CAMERA_ZOOM = "Camera Zoom";
-      
-      public const string MIDDLE_CLICK = "Middle Click";
+      public static PrefabRepository Instance;
+
+      #endregion
+
+      #region Public fields
+
+      public GameObject TestUnit;
+
+      #endregion
+
+      #region Methods
+
+      [UsedImplicitly]
+      private void Start()
+      {
+         Instance = this;
+      }
 
       #endregion
    }

@@ -8,6 +8,8 @@
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+using System.Collections.Generic;
+
 using JetBrains.Annotations;
 
 using SGG.RTS.Resource;
@@ -34,11 +36,25 @@ namespace SGG.RTS
 
       #endregion
 
+      #region Public fields
+
+      public List<Unit> Units;
+
+      #endregion
+
       #region Methods
+
+      public bool Contains(Vector2 a_Pt)
+      {
+         return a_Pt.x > 0 && a_Pt.y > 0 &&
+                a_Pt.x < m_BoardSizeInTiles.X &&
+                a_Pt.y < m_BoardSizeInTiles.Y;
+      }
 
       public void Initialize(Vector2UInt a_BoardSizeInTiles)
       {
          m_BoardSizeInTiles = a_BoardSizeInTiles;
+         Units = new List<Unit>();
 
          CreateTiles();
          CreateBorders();
@@ -86,6 +102,23 @@ namespace SGG.RTS
             // Set tile color
             tile.GetComponent<Renderer>().material = MaterialRepository.Instance.TileMaterial;
          });
+      }
+
+      public void SpawnUnit(Vector2 a_Pos, Team a_Team)
+      {
+         if (!DebugUtils.Verify(Contains(a_Pos)))
+         {
+            return;
+         }
+
+         var obj = Instantiate(PrefabRepository.Instance.TestUnit);
+         obj.transform.position = new Vector3(a_Pos.x, a_Pos.y, -1);
+
+         var unit = obj.GetComponent<Unit>();
+         unit.Color = a_Team.Color;
+         unit.Team = a_Team;
+
+         Units.Add(unit);
       }
 
       [UsedImplicitly]

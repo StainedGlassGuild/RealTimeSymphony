@@ -19,6 +19,7 @@ namespace SGG.RTS
       #region Static fields
 
       public static World World;
+      public static Team PlayerTeam;
 
       #endregion
 
@@ -30,6 +31,12 @@ namespace SGG.RTS
          var boardSizeInTiles = new Vector2UInt(50, 40);
          World = this.CreateComponentInNewChildGameObj<World>();
          World.Initialize(boardSizeInTiles);
+
+         // Create the team of the player
+         PlayerTeam = new Team();
+
+         // Create mouse cursor handler
+         this.CreateComponentInNewChildGameObj<MouseCursorHandler>();
 
          // Create camera controller
          var camCtrl = this.CreateComponentInNewChildGameObj<CameraController>();

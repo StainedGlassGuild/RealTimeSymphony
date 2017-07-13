@@ -3,22 +3,20 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: InputNames.cs
+// File: Team.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace SGG.RTS.Resource
-{
-   public static class InputNames
-   {
-      #region Compile-time constants
+using UnityEngine;
 
-      public const string CAMERA_HORIZONTAL_MOVE = "Camera Horizontal Move";
-      public const string CAMERA_VERTICAL_MOVE = "Camera Vertical Move";
-      public const string CAMERA_ZOOM = "Camera Zoom";
-      
-      public const string MIDDLE_CLICK = "Middle Click";
+namespace SGG.RTS
+{
+   public sealed class Team
+   {
+      #region Public fields
+
+      public Color Color = Color.cyan;
 
       #endregion
    }
