@@ -12,7 +12,7 @@ using JetBrains.Annotations;
 
 using UnityEngine;
 
-namespace SGG.RTS
+namespace SGG.RTS.Resource
 {
    public sealed class MaterialRepository : MonoBehaviour
    {

@@ -30,6 +30,10 @@ namespace SGG.RTS
          var boardSizeInTiles = new Vector2UInt(50, 40);
          World = this.CreateComponentInNewChildGameObj<World>();
          World.Initialize(boardSizeInTiles);
+
+         // Create camera controller
+         var camCtrl = this.CreateComponentInNewChildGameObj<CameraController>();
+         camCtrl.Initialize(boardSizeInTiles, new Vector2UInt(2, 3));
       }
 
       [UsedImplicitly]

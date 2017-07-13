@@ -8,6 +8,10 @@
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+using JetBrains.Annotations;
+
+using SGG.RTS.Resource;
+
 using UnityEngine;
 
 namespace SGG.RTS
@@ -17,6 +21,10 @@ namespace SGG.RTS
       #region Compile-time constants
 
       private const float TILE_BORDER_SIZE = 0.05f;
+
+      private const float DARKEST_BORDER_INTENSITY = 0.9f;
+
+      private const float ZOOM_LVL_WHERE_BORDERS_NOT_VISIBLE = 40;
 
       #endregion
 
@@ -78,6 +86,19 @@ namespace SGG.RTS
             // Set tile color
             tile.GetComponent<Renderer>().material = MaterialRepository.Instance.TileMaterial;
          });
+      }
+
+      [UsedImplicitly]
+      private void Update()
+      {
+         float borderDistFactor = (Mathf.Min(Camera.main.orthographicSize,
+                                      ZOOM_LVL_WHERE_BORDERS_NOT_VISIBLE) -
+                                   CameraController.MIN_ZOOM_LVL) /
+                                  (ZOOM_LVL_WHERE_BORDERS_NOT_VISIBLE -
+                                   CameraController.MIN_ZOOM_LVL);
+         var bgColor = Color.white * Mathf.Lerp(DARKEST_BORDER_INTENSITY, 1, borderDistFactor);
+         bgColor.a = 1;
+         MaterialRepository.Instance.BackgroundMaterial.color = bgColor;
       }
 
       #endregion
