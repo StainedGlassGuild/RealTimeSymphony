@@ -11,6 +11,7 @@
 using JetBrains.Annotations;
 
 using SGG.RTS.Resource;
+using SGG.RTS.UI;
 
 using UnityEngine;
 
@@ -49,7 +50,7 @@ namespace SGG.RTS
          float minDist = float.PositiveInfinity;
          Unit closestUnit = null;
 
-         foreach (var unit in GameDriver.World.Units)
+         foreach (var unit in GameDriver.Instance.World.Units)
          {
             float dist = Vector2.Distance(unit.Position, a_ClickPosWorld);
             if (dist < minDist)
@@ -79,7 +80,7 @@ namespace SGG.RTS
          // Selection box
          m_SelectionBox = Instantiate(PrefabRepository.Instance.SelectionBox);
          m_SelectionBox.SetActive(false);
-         var selectionBoxColor = new Color(1, 1, 1) - GameDriver.PlayerTeam.Color;
+         var selectionBoxColor = new Color(1, 1, 1) - GameDriver.Instance.PlayerTeam.Color;
          selectionBoxColor.a = SELECTION_BOX_OPACITY;
          m_SelectionBox.GetComponent<Renderer>().material.color = selectionBoxColor;
       }
@@ -104,6 +105,7 @@ namespace SGG.RTS
 
          // Use a selection box after a certain distance
          if (Input.GetButton(InputNames.LEFT_CLICK) &&
+             !MainGUI.Instance.ContainsCursor &&
              Vector2.Distance(m_SelectionBoxStartPos, clickPosWorld) > MIN_SELECTION_BOX_SIZE)
          {
             m_SelectionBox.SetActive(true);
@@ -122,7 +124,7 @@ namespace SGG.RTS
             {
                m_SelectionBox.SetActive(false);
             }
-            else
+            else if (!MainGUI.Instance.ContainsCursor)
             {
                m_CurrSelection.Clear();
                var unit = FindUnitClosestToCursorWithinRange(clickPosWorld);
@@ -137,15 +139,19 @@ namespace SGG.RTS
          if (Input.GetButtonUp(InputNames.MIDDLE_CLICK))
          {
             if (!Input.GetButton(InputNames.LEFT_CLICK) &&
+                !MainGUI.Instance.ContainsCursor &&
                 Time.time - m_RightClickDownTime < CLICK_MAX_TIME_SEC)
             {
-               if (GameDriver.World.Contains(clickPosWorld))
+               if (GameDriver.Instance.World.Contains(clickPosWorld))
                {
-                  GameDriver.World.SpawnUnit(clickPosWorld, GameDriver.PlayerTeam);
+                  GameDriver.Instance.World.SpawnUnit(clickPosWorld, GameDriver.Instance.PlayerTeam);
                }
             }
 
-            m_CurrSelection.Clear();
+            if (!MainGUI.Instance.ContainsCursor)
+            {
+               m_CurrSelection.Clear();
+            }
             m_SelectionBox.SetActive(false);
             m_SelectionBoxStartPos = clickPosWorld;
             m_RightClickDownTime = 0;
@@ -176,7 +182,7 @@ namespace SGG.RTS
 
          // Update objects in selection
          m_CurrSelection.Clear();
-         foreach (var unit in GameDriver.World.Units)
+         foreach (var unit in GameDriver.Instance.World.Units)
          {
             if (boxBounds.Contains(unit.Position))
             {

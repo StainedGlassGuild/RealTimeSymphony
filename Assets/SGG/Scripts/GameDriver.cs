@@ -18,8 +18,14 @@ namespace SGG.RTS
    {
       #region Static fields
 
-      public static World World;
-      public static Team PlayerTeam;
+      public static GameDriver Instance;
+
+      #endregion
+
+      #region Public fields
+
+      public World World;
+      public Team PlayerTeam;
 
       #endregion
 
@@ -41,6 +47,8 @@ namespace SGG.RTS
          // Create camera controller
          var camCtrl = this.CreateComponentInNewChildGameObj<CameraController>();
          camCtrl.Initialize(boardSizeInTiles, new Vector2UInt(2, 3));
+
+         Instance = this;
       }
 
       [UsedImplicitly]
