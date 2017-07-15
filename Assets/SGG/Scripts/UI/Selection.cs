@@ -12,12 +12,11 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
-using SGG.RTS.UI;
-using SGG.RTS.Unit;
+using SGG.RTS.Entity.Unit;
 
 using UnityEngine;
 
-namespace SGG.RTS
+namespace SGG.RTS.UI
 {
    public sealed class Selection : MonoBehaviour
    {

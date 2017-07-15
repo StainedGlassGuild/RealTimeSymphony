@@ -13,7 +13,7 @@ using System.Linq;
 
 using JetBrains.Annotations;
 
-using SGG.RTS.Unit;
+using SGG.RTS.Entity.Unit;
 
 using UnityEngine;
 

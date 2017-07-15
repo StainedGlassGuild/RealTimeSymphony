@@ -12,8 +12,9 @@ using System;
 
 using JetBrains.Annotations;
 
+using SGG.RTS.Entity.Unit;
 using SGG.RTS.Resource;
-using SGG.RTS.Unit;
+using SGG.RTS.Utils;
 using SGG.RTS.World.Entity;
 
 using UnityEngine;
@@ -62,7 +63,7 @@ namespace SGG.RTS.World
                   var value = (NoteValue) Enum.Parse(typeof(NoteValue), tokens[3]);
                   var unit = Instantiate(Prefabs.Instance.StaveUnit).GetComponent<StaveUnit>();
                   unit.Initialize(GameLogic.Instance.PlayerTeam, function, value);
-                  RTSWorld.Instance.SpawnUnit(unit, pos.ToVector2() + Vector2.one * 0.5f);
+                  GameWorld.Instance.SpawnUnit(unit, pos.ToVector2() + Vector2.one * 0.5f);
                   break;
                default:
                   throw new ArgumentOutOfRangeException();

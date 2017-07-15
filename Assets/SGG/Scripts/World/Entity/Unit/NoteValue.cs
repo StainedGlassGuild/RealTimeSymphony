@@ -8,7 +8,7 @@
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace SGG.RTS.Unit
+namespace SGG.RTS.Entity.Unit
 {
    public enum NoteValue
    {

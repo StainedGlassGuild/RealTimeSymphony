@@ -10,14 +10,14 @@
 
 using JetBrains.Annotations;
 
+using SGG.RTS.Entity.Unit;
 using SGG.RTS.Resource;
-using SGG.RTS.UI;
-using SGG.RTS.Unit;
+using SGG.RTS.UI.GUI;
 using SGG.RTS.World;
 
 using UnityEngine;
 
-namespace SGG.RTS
+namespace SGG.RTS.UI.Input
 {
    public sealed class MouseCursorHandler : MonoBehaviour
    {
@@ -50,7 +50,7 @@ namespace SGG.RTS
          float minDist = float.PositiveInfinity;
          AUnit closestUnit = null;
 
-         foreach (var unit in RTSWorld.Instance.Units)
+         foreach (var unit in GameWorld.Instance.Units)
          {
             float dist = Vector2.Distance(unit.Position, a_ClickPosWorld);
             if (dist < minDist)
@@ -89,22 +89,22 @@ namespace SGG.RTS
          bool isCursorInMainPanel = InGameGUI.Instance.MainPanel.ContainsCursor;
 
          // Get the point in the world where the mouse is
-         var clickPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+         var clickPosWorld = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
 
          // Remember the location of left click down
-         if (Input.GetButtonDown(InputNames.LEFT_CLICK))
+         if (UnityEngine.Input.GetButtonDown(InputNames.LEFT_CLICK))
          {
             m_SelectionBoxStartPos = clickPosWorld;
          }
 
          // Remember the time of middle click down
-         if (Input.GetButtonDown(InputNames.MIDDLE_CLICK))
+         if (UnityEngine.Input.GetButtonDown(InputNames.MIDDLE_CLICK))
          {
             m_RightClickDownTime = Time.time;
          }
 
          // Use a selection box after a certain distance
-         if (Input.GetButton(InputNames.LEFT_CLICK) &&
+         if (UnityEngine.Input.GetButton(InputNames.LEFT_CLICK) &&
              !InGameGUI.Instance.MainPanel.ContainsCursor &&
              Vector2.Distance(m_SelectionBoxStartPos, clickPosWorld) > MIN_SELECTION_BOX_SIZE)
          {
@@ -118,7 +118,7 @@ namespace SGG.RTS
          }
 
          // Create selection at left click up
-         if (Input.GetButtonUp(InputNames.LEFT_CLICK))
+         if (UnityEngine.Input.GetButtonUp(InputNames.LEFT_CLICK))
          {
             if (m_SelectionBox.activeInHierarchy)
             {
@@ -126,35 +126,35 @@ namespace SGG.RTS
             }
             else if (!isCursorInMainPanel)
             {
-               GameLogic.Instance.Selection.Clear();
+               Inputs.Instance.Selection.Clear();
                var unit = FindUnitClosestToCursorWithinRange(clickPosWorld);
                if (unit != null)
                {
-                  GameLogic.Instance.Selection.Add(unit);
+                  Inputs.Instance.Selection.Add(unit);
                }
                InGameGUI.Instance.MainPanel.UpdateSelectedContent();
             }
          }
 
          // Spawn a unit at middle click
-         if (Input.GetButtonUp(InputNames.MIDDLE_CLICK))
+         if (UnityEngine.Input.GetButtonUp(InputNames.MIDDLE_CLICK))
          {
-            if (!Input.GetButton(InputNames.LEFT_CLICK) &&
+            if (!UnityEngine.Input.GetButton(InputNames.LEFT_CLICK) &&
                 !isCursorInMainPanel &&
                 Time.time - m_RightClickDownTime < CLICK_MAX_TIME_SEC)
             {
-               if (RTSWorld.Instance.Contains(clickPosWorld))
+               if (GameWorld.Instance.Contains(clickPosWorld))
                {
                   var unit = Instantiate(Prefabs.Instance.StaveUnit).GetComponent<StaveUnit>();
                   unit.Initialize(GameLogic.Instance.PlayerTeam,
                      UnitFunction.MILITARY, NoteValue.QUAVER);
-                  RTSWorld.Instance.SpawnUnit(unit, clickPosWorld);
+                  GameWorld.Instance.SpawnUnit(unit, clickPosWorld);
                }
             }
 
             if (!isCursorInMainPanel)
             {
-               GameLogic.Instance.Selection.Clear();
+               Inputs.Instance.Selection.Clear();
                InGameGUI.Instance.MainPanel.UpdateSelectedContent();
             }
             m_SelectionBox.SetActive(false);
@@ -186,20 +186,20 @@ namespace SGG.RTS
          var boxBounds = new Bounds(boxCenter, boxSize);
 
          // Update objects in selection
-         foreach (var unit in RTSWorld.Instance.Units)
+         foreach (var unit in GameWorld.Instance.Units)
          {
             if (boxBounds.Contains(unit.Position))
             {
-               if (!GameLogic.Instance.Selection.Contains(unit))
+               if (!Inputs.Instance.Selection.Contains(unit))
                {
-                  GameLogic.Instance.Selection.Add(unit);
+                  Inputs.Instance.Selection.Add(unit);
                }
             }
             else
             {
-               if (GameLogic.Instance.Selection.Contains(unit))
+               if (Inputs.Instance.Selection.Contains(unit))
                {
-                  GameLogic.Instance.Selection.Remove(unit);
+                  Inputs.Instance.Selection.Remove(unit);
                }
             }
          }

@@ -12,7 +12,7 @@ using System;
 
 using UnityEngine;
 
-namespace SGG.RTS
+namespace SGG.RTS.Utils
 {
    [Serializable]
    public struct Vector2UInt

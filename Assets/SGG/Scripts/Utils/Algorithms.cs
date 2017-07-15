@@ -10,9 +10,9 @@
 
 using System;
 
-namespace SGG.RTS
+namespace SGG.RTS.Utils
 {
-   public static class Utils
+   public static class Algorithms
    {
       #region Static methods
 

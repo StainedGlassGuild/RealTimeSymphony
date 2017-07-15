@@ -3,20 +3,24 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: Building.cs
+// File: InputNames.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-using UnityEngine;
-
-namespace SGG.RTS.Building
+namespace SGG.RTS.UI.Input
 {
-   public sealed class Building : MonoBehaviour
+   public static class InputNames
    {
-      #region Properties
+      #region Compile-time constants
 
-      public Vector2UInt Size { get; set; }
+      public const string CAMERA_HORIZONTAL_MOVE = "Camera Horizontal Move";
+      public const string CAMERA_VERTICAL_MOVE = "Camera Vertical Move";
+      public const string CAMERA_ZOOM = "Camera Zoom";
+
+      public const string LEFT_CLICK = "Left Click";
+      public const string RIGHT_CLICK = "Right Click";
+      public const string MIDDLE_CLICK = "Middle Click";
 
       #endregion
    }

@@ -13,7 +13,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SGG.RTS.UI
+namespace SGG.RTS.UI.GUI
 {
    public sealed class MainPanel : MonoBehaviour
    {

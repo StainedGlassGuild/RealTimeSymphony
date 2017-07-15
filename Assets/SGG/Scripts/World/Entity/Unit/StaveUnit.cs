@@ -14,7 +14,7 @@ using SGG.RTS.Resource;
 
 using UnityEngine;
 
-namespace SGG.RTS.Unit
+namespace SGG.RTS.Entity.Unit
 {
    public sealed class StaveUnit : AUnit
    {

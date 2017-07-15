@@ -3,15 +3,23 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: UnitFamily.cs
+// File: Building.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace SGG.RTS.Unit
+using SGG.RTS.Utils;
+
+using UnityEngine;
+
+namespace SGG.RTS.Entity.Building
 {
-   public enum UnitFamily
+   public sealed class Building : MonoBehaviour
    {
-      STAVE
+      #region Properties
+
+      public Vector2UInt Size { get; set; }
+
+      #endregion
    }
 }

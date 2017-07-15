@@ -3,34 +3,42 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: SelectionPanel.cs
+// File: InfoPanel.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-using SGG.RTS.Resource;
+using JetBrains.Annotations;
+
+using SGG.RTS.UI.Input;
 
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace SGG.RTS.UI
+namespace SGG.RTS.UI.GUI
 {
-   public sealed class SelectionPanel : MonoBehaviour
+   public sealed class InfoPanel : MonoBehaviour
    {
+      #region Private fields
+
+      [SerializeField, UsedImplicitly]
+      private Text m_ElementName;
+
+      #endregion
+
       #region Methods
 
       public void UpdateContent()
       {
-         for (int i = 0; i < transform.childCount; ++i)
+         var selectionUnits = Inputs.Instance.Selection.Units;
+
+         if (selectionUnits.Count != 1)
          {
-            Destroy(transform.GetChild(i).gameObject);
+            m_ElementName.text = string.Empty;
+            return;
          }
 
-         foreach (var unit in GameLogic.Instance.Selection.Units)
-         {
-            var selectElem = Instantiate(Prefabs.Instance.GameObjSelectionElem);
-            selectElem.transform.SetParent(transform, false);
-            selectElem.name += " [" + unit.name + "]";
-         }
+         m_ElementName.text = selectionUnits[0].UnitTypeName;
       }
 
       #endregion

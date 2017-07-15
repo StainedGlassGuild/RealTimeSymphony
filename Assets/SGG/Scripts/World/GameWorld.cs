@@ -14,14 +14,16 @@ using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 using SGG.RTS.Resource;
-using SGG.RTS.Unit;
+using SGG.RTS.Entity.Unit;
+using SGG.RTS.UI.Input;
+using SGG.RTS.Utils;
 
 using UnityEngine;
 
 namespace SGG.RTS.World
 {
    // ReSharper disable once InconsistentNaming
-   public sealed class RTSWorld : MonoBehaviour
+   public sealed class GameWorld : MonoBehaviour
    {
       #region Compile-time constants
 
@@ -33,7 +35,7 @@ namespace SGG.RTS.World
 
       #region Static fields
 
-      public static RTSWorld Instance;
+      public static GameWorld Instance;
 
       #endregion
 
@@ -78,7 +80,7 @@ namespace SGG.RTS.World
       private void CreateTiles()
       {
          // Create tiles
-         Utils.ForEachElement(BoardSizeInTiles, a_TileCoord =>
+         Algorithms.ForEachElement(BoardSizeInTiles, a_TileCoord =>
          {
             // Create tile primitive
             var tile = GameObject.CreatePrimitive(PrimitiveType.Plane);

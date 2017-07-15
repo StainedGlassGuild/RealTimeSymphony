@@ -3,7 +3,7 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: GameLogic.cs
+// File: Inputs.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -12,19 +12,21 @@ using JetBrains.Annotations;
 
 using UnityEngine;
 
-namespace SGG.RTS
+namespace SGG.RTS.UI.Input
 {
-   public sealed class GameLogic : MonoBehaviour
+   public sealed class Inputs : MonoBehaviour
    {
       #region Static fields
 
-      public static GameLogic Instance;
+      public static Inputs Instance;
 
       #endregion
 
       #region Public fields
 
-      public Team PlayerTeam;
+      public Selection Selection;
+      public CameraController CameraController;
+      public MouseCursorHandler CursorHandler;
 
       #endregion
 

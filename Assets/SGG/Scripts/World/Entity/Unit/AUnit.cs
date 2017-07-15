@@ -10,7 +10,7 @@
 
 using UnityEngine;
 
-namespace SGG.RTS.Unit
+namespace SGG.RTS.Entity.Unit
 {
    public abstract class AUnit : MonoBehaviour
    {

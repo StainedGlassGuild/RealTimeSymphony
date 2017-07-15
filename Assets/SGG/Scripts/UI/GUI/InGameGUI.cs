@@ -3,7 +3,7 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: InfoPanel.cs
+// File: MainGUI.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -11,32 +11,30 @@
 using JetBrains.Annotations;
 
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace SGG.RTS.UI
+namespace SGG.RTS.UI.GUI
 {
-   public sealed class InfoPanel : MonoBehaviour
+   // ReSharper disable once InconsistentNaming
+   public sealed class InGameGUI : MonoBehaviour
    {
-      #region Private fields
+      #region Static fields
 
-      [SerializeField, UsedImplicitly]
-      private Text m_ElementName;
+      public static InGameGUI Instance;
+
+      #endregion
+
+      #region Public fields
+
+      public MainPanel MainPanel;
 
       #endregion
 
       #region Methods
 
-      public void UpdateContent()
+      [UsedImplicitly]
+      private void Start()
       {
-         var selectionUnits = GameLogic.Instance.Selection.Units;
-
-         if (selectionUnits.Count != 1)
-         {
-            m_ElementName.text = string.Empty;
-            return;
-         }
-
-         m_ElementName.text = selectionUnits[0].UnitTypeName;
+         Instance = this;
       }
 
       #endregion
