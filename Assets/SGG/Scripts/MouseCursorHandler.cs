@@ -12,6 +12,7 @@ using JetBrains.Annotations;
 
 using SGG.RTS.Resource;
 using SGG.RTS.UI;
+using SGG.RTS.Unit;
 
 using UnityEngine;
 
@@ -33,8 +34,6 @@ namespace SGG.RTS
 
       #region Private fields
 
-      private Selection m_CurrSelection;
-
       private float m_RightClickDownTime;
 
       // Selection box
@@ -45,10 +44,10 @@ namespace SGG.RTS
 
       #region Static methods
 
-      private static Unit FindUnitClosestToCursorWithinRange(Vector2 a_ClickPosWorld)
+      private static AUnit FindUnitClosestToCursorWithinRange(Vector2 a_ClickPosWorld)
       {
          float minDist = float.PositiveInfinity;
-         Unit closestUnit = null;
+         AUnit closestUnit = null;
 
          foreach (var unit in GameDriver.Instance.World.Units)
          {
@@ -75,8 +74,6 @@ namespace SGG.RTS
       [UsedImplicitly]
       private void Start()
       {
-         m_CurrSelection = this.CreateComponentInNewChildGameObj<Selection>();
-
          // Selection box
          m_SelectionBox = Instantiate(PrefabRepository.Instance.SelectionBox);
          m_SelectionBox.SetActive(false);
@@ -126,11 +123,11 @@ namespace SGG.RTS
             }
             else if (!MainGUI.Instance.ContainsCursor)
             {
-               m_CurrSelection.Clear();
+               GameDriver.Instance.Selection.Clear();
                var unit = FindUnitClosestToCursorWithinRange(clickPosWorld);
                if (unit != null)
                {
-                  m_CurrSelection.Add(unit);
+                  GameDriver.Instance.Selection.Add(unit);
                }
             }
          }
@@ -150,7 +147,7 @@ namespace SGG.RTS
 
             if (!MainGUI.Instance.ContainsCursor)
             {
-               m_CurrSelection.Clear();
+               GameDriver.Instance.Selection.Clear();
             }
             m_SelectionBox.SetActive(false);
             m_SelectionBoxStartPos = clickPosWorld;
@@ -181,12 +178,12 @@ namespace SGG.RTS
          var boxBounds = new Bounds(boxCenter, boxSize);
 
          // Update objects in selection
-         m_CurrSelection.Clear();
+         GameDriver.Instance.Selection.Clear();
          foreach (var unit in GameDriver.Instance.World.Units)
          {
             if (boxBounds.Contains(unit.Position))
             {
-               m_CurrSelection.Add(unit);
+               GameDriver.Instance.Selection.Add(unit);
             }
          }
 

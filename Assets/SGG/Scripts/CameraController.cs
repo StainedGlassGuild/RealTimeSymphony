@@ -24,6 +24,7 @@ namespace SGG.RTS
       private const float MAX_ZOOM_LVL = 70;
       private const float INITIAL_ZOOM_LVL = 10;
       private const float CAMERA_MOVE_SPEED = 0.37564f;
+      private const float ZOOM_SPEED = 0.5f;
 
       #endregion
 
@@ -58,7 +59,7 @@ namespace SGG.RTS
          Camera.main.transform.position = pos;
 
          // Update camera zoom
-         m_TargetZoomLvl += Input.GetAxis(InputNames.CAMERA_ZOOM);
+         m_TargetZoomLvl += Input.GetAxis(InputNames.CAMERA_ZOOM) * ZOOM_SPEED;
          m_TargetZoomLvl = Mathf.Clamp(m_TargetZoomLvl, MIN_ZOOM_LVL, MAX_ZOOM_LVL);
          float zoom = Camera.main.orthographicSize;
          Camera.main.orthographicSize = Mathf.Lerp(zoom, m_TargetZoomLvl, 0.25f);

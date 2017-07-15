@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 
 using SGG.RTS.Resource;
+using SGG.RTS.Unit;
 
 using UnityEngine;
 
@@ -38,7 +39,7 @@ namespace SGG.RTS
 
       #region Public fields
 
-      public List<Unit> Units;
+      public List<AUnit> Units;
 
       #endregion
 
@@ -54,7 +55,7 @@ namespace SGG.RTS
       public void Initialize(Vector2UInt a_BoardSizeInTiles)
       {
          m_BoardSizeInTiles = a_BoardSizeInTiles;
-         Units = new List<Unit>();
+         Units = new List<AUnit>();
 
          CreateTiles();
          CreateBorders();
@@ -114,9 +115,9 @@ namespace SGG.RTS
          var obj = Instantiate(PrefabRepository.Instance.TestUnit);
          obj.transform.position = new Vector3(a_Pos.x, a_Pos.y, -1);
 
-         var unit = obj.GetComponent<Unit>();
-         unit.Color = a_Team.Color;
-         unit.Team = a_Team;
+         var unit = obj.GetComponent<StaveUnit>();
+         unit.Initialize(a_Team, UnitFunction.MILITARY, NoteValue.QUAVER);
+         unit.transform.parent = transform;
 
          Units.Add(unit);
       }

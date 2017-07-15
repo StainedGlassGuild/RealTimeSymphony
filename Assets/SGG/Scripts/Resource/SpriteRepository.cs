@@ -13,6 +13,8 @@ using System.Linq;
 
 using JetBrains.Annotations;
 
+using SGG.RTS.Unit;
+
 using UnityEngine;
 
 namespace SGG.RTS.Resource
@@ -46,8 +48,8 @@ namespace SGG.RTS.Resource
 
       #region Public fields
 
-      [SerializeField]
-      public StaveUnitEntry[] StaveUnits;
+      [SerializeField, UsedImplicitly]
+      private StaveUnitEntry[] m_StaveUnits;
 
       #endregion
 
@@ -61,7 +63,7 @@ namespace SGG.RTS.Resource
 
       public Sprite GetStaveUnitSprite(UnitFunction a_Function, NoteValue a_Value, SpriteType a_Type)
       {
-         var spriteEntry = StaveUnits.First(a_Entry => a_Entry.Function == a_Function &&
+         var spriteEntry = m_StaveUnits.First(a_Entry => a_Entry.Function == a_Function &&
                                                        a_Entry.Value == a_Value);
          return a_Type == SpriteType.MAIN ? spriteEntry.MainSprite : spriteEntry.GlowSprite;
       }

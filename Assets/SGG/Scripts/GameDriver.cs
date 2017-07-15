@@ -10,6 +10,8 @@
 
 using JetBrains.Annotations;
 
+using SGG.RTS.UI;
+
 using UnityEngine;
 
 namespace SGG.RTS
@@ -22,10 +24,11 @@ namespace SGG.RTS
 
       #endregion
 
-      #region Public fields
+      #region Properties
 
-      public World World;
-      public Team PlayerTeam;
+      public World World { get; private set; }
+      public Team PlayerTeam { get; private set; }
+      public Selection Selection { get; private set; }
 
       #endregion
 
@@ -41,6 +44,9 @@ namespace SGG.RTS
          // Create the team of the player
          PlayerTeam = new Team();
 
+         // Create game element selection
+         Selection = this.CreateComponentInNewChildGameObj<Selection>();
+
          // Create mouse cursor handler
          this.CreateComponentInNewChildGameObj<MouseCursorHandler>();
 
@@ -49,6 +55,9 @@ namespace SGG.RTS
          camCtrl.Initialize(boardSizeInTiles, new Vector2UInt(2, 3));
 
          Instance = this;
+
+         // Initialize GUI
+         MainGUI.Instance.Initialize();
       }
 
       [UsedImplicitly]

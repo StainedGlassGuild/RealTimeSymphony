@@ -12,6 +12,9 @@ using System.Collections.Generic;
 
 using JetBrains.Annotations;
 
+using SGG.RTS.UI;
+using SGG.RTS.Unit;
+
 using UnityEngine;
 
 namespace SGG.RTS
@@ -35,7 +38,7 @@ namespace SGG.RTS
 
       #region Public fields
 
-      public List<Unit> Units;
+      public List<AUnit> Units;
 
       #endregion
 
@@ -44,10 +47,10 @@ namespace SGG.RTS
       [UsedImplicitly]
       private void Start()
       {
-         Units = new List<Unit>();
+         Units = new List<AUnit>();
       }
 
-      public void Add(Unit a_Unit)
+      public void Add(AUnit a_Unit)
       {
          if (Units.Count == 0)
          {
@@ -58,6 +61,8 @@ namespace SGG.RTS
          {
             Units.Add(a_Unit);
          }
+
+         MainGUI.Instance.UpdateSelectionPanel();
       }
 
       public void Clear()
@@ -70,6 +75,8 @@ namespace SGG.RTS
          SetUnitsColor(Units[0].Team.Color);
          SetUnitsGlowColor(Color.clear);
          Units.Clear();
+
+         MainGUI.Instance.UpdateSelectionPanel();
       }
 
       [UsedImplicitly]

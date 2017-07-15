@@ -8,7 +8,7 @@
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace SGG.RTS
+namespace SGG.RTS.Unit
 {
    public enum UnitFunction
    {

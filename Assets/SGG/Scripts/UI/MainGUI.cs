@@ -10,7 +10,10 @@
 
 using JetBrains.Annotations;
 
+using SGG.RTS.Resource;
+
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SGG.RTS.UI
 {
@@ -25,18 +28,27 @@ namespace SGG.RTS.UI
 
       #region Private fields
 
+      [SerializeField, UsedImplicitly]
+      private float m_MainPanelOpacity;
+
+      [SerializeField, UsedImplicitly]
+      private float m_MainPanelDarkness;
+
       private bool m_PrevContainsCursor;
 
       #endregion
 
       #region Public fields
 
-      public bool CursorJustEntered;
-      public bool CursorJustExited;
+      public GameObject MainPanel;
+      public GridLayoutGroup SelectionGrid;
 
       #endregion
 
       #region Properties
+
+      public bool CursorJustEntered { get; private set; }
+      public bool CursorJustExited { get; private set; }
 
       /// <summary>
       /// This is set by the event triggers of this object
@@ -52,6 +64,15 @@ namespace SGG.RTS.UI
       {
          Instance = this;
          m_PrevContainsCursor = ContainsCursor;
+      }
+
+      public void Initialize()
+      {
+         var panelColor = GameDriver.Instance.PlayerTeam.Color;
+         panelColor *= m_MainPanelDarkness;
+         panelColor += new Color(1, 1, 1, 0) * m_MainPanelDarkness;
+         panelColor.a = m_MainPanelOpacity;
+         MainPanel.GetComponent<Image>().color = panelColor;
       }
 
       [UsedImplicitly]
@@ -75,6 +96,22 @@ namespace SGG.RTS.UI
          }
 
          m_PrevContainsCursor = ContainsCursor;
+      }
+
+      public void UpdateSelectionPanel()
+      {
+         var selectionUnits = GameDriver.Instance.Selection.Units;
+
+         for (int i = selectionUnits.Count; i < SelectionGrid.transform.childCount; ++i)
+         {
+            Destroy(SelectionGrid.transform.GetChild(i).gameObject);
+         }
+
+         foreach (var unit in selectionUnits)
+         {
+            var selectElem = Instantiate(PrefabRepository.Instance.GameObjSelectionElem);
+            selectElem.transform.SetParent(SelectionGrid.transform, false);
+         }
       }
 
       #endregion

@@ -26,6 +26,7 @@ namespace SGG.RTS.Resource
 
       public GameObject TestUnit;
       public GameObject SelectionBox;
+      public GameObject GameObjSelectionElem;
 
       #endregion
 
