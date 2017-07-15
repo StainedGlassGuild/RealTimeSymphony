@@ -13,6 +13,7 @@ using JetBrains.Annotations;
 using SGG.RTS.Resource;
 using SGG.RTS.UI;
 using SGG.RTS.Unit;
+using SGG.RTS.World;
 
 using UnityEngine;
 
@@ -49,7 +50,7 @@ namespace SGG.RTS
          float minDist = float.PositiveInfinity;
          AUnit closestUnit = null;
 
-         foreach (var unit in World.Instance.Units)
+         foreach (var unit in RTSWorld.Instance.Units)
          {
             float dist = Vector2.Distance(unit.Position, a_ClickPosWorld);
             if (dist < minDist)
@@ -131,6 +132,7 @@ namespace SGG.RTS
                {
                   GameLogic.Instance.Selection.Add(unit);
                }
+               InGameGUI.Instance.MainPanel.UpdateSelectedContent();
             }
          }
 
@@ -141,15 +143,19 @@ namespace SGG.RTS
                 !isCursorInMainPanel &&
                 Time.time - m_RightClickDownTime < CLICK_MAX_TIME_SEC)
             {
-               if (World.Instance.Contains(clickPosWorld))
+               if (RTSWorld.Instance.Contains(clickPosWorld))
                {
-                  World.Instance.SpawnUnit(clickPosWorld, GameLogic.Instance.PlayerTeam);
+                  var unit = Instantiate(Prefabs.Instance.StaveUnit).GetComponent<StaveUnit>();
+                  unit.Initialize(GameLogic.Instance.PlayerTeam,
+                     UnitFunction.MILITARY, NoteValue.QUAVER);
+                  RTSWorld.Instance.SpawnUnit(unit, clickPosWorld);
                }
             }
 
             if (!isCursorInMainPanel)
             {
                GameLogic.Instance.Selection.Clear();
+               InGameGUI.Instance.MainPanel.UpdateSelectedContent();
             }
             m_SelectionBox.SetActive(false);
             m_SelectionBoxStartPos = clickPosWorld;
@@ -180,14 +186,24 @@ namespace SGG.RTS
          var boxBounds = new Bounds(boxCenter, boxSize);
 
          // Update objects in selection
-         GameLogic.Instance.Selection.Clear();
-         foreach (var unit in World.Instance.Units)
+         foreach (var unit in RTSWorld.Instance.Units)
          {
             if (boxBounds.Contains(unit.Position))
             {
-               GameLogic.Instance.Selection.Add(unit);
+               if (!GameLogic.Instance.Selection.Contains(unit))
+               {
+                  GameLogic.Instance.Selection.Add(unit);
+               }
+            }
+            else
+            {
+               if (GameLogic.Instance.Selection.Contains(unit))
+               {
+                  GameLogic.Instance.Selection.Remove(unit);
+               }
             }
          }
+         InGameGUI.Instance.MainPanel.UpdateSelectedContent();
 
          // Update visual object
          var transf = m_SelectionBox.transform;

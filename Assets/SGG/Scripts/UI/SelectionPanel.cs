@@ -20,14 +20,12 @@ namespace SGG.RTS.UI
 
       public void UpdateContent()
       {
-         var selectionUnits = GameLogic.Instance.Selection.Units;
-
-         for (int i = selectionUnits.Count; i < transform.childCount; ++i)
+         for (int i = 0; i < transform.childCount; ++i)
          {
             Destroy(transform.GetChild(i).gameObject);
          }
 
-         foreach (var unit in selectionUnits)
+         foreach (var unit in GameLogic.Instance.Selection.Units)
          {
             var selectElem = Instantiate(Prefabs.Instance.GameObjSelectionElem);
             selectElem.transform.SetParent(transform, false);

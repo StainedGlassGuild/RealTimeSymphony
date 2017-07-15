@@ -1,0 +1,20 @@
+{
+    "Objects": [
+        {
+            "Type": "Building.Metronome",
+            "Pos": [ 15, 16 ]
+        },
+        {
+            "Type": "Unit.Stave.Military.Quaver",
+            "Pos": [ 34, 12 ]
+        },
+        {
+            "Type": "Unit.Stave.Military.Quaver",
+            "Pos": [ 36, 11 ]
+        },
+        {
+            "Type": "Unit.Stave.Military.Quaver",
+            "Pos": [ 34, 14 ]
+        }
+    ]
+}

@@ -3,24 +3,33 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: DebugUtils.cs
+// File: WorldGenerationScript.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-using UnityEngine;
+using System;
+using System.Collections.Generic;
 
-namespace SGG.RTS
+namespace SGG.RTS.World
 {
-   public static class DebugUtils
+   [Serializable]
+   public struct WorldGenerationScript
    {
-      #region Static methods
+      #region Nested types
 
-      public static bool Verify(bool a_Cond)
+      [Serializable]
+      public struct ObjectEntry
       {
-         Debug.Assert(a_Cond);
-         return a_Cond;
+         public string Type;
+         public uint[] Pos;
       }
+
+      #endregion
+
+      #region Public fields
+
+      public List<ObjectEntry> Objects;
 
       #endregion
    }

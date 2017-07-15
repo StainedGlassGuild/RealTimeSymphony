@@ -11,6 +11,7 @@
 using JetBrains.Annotations;
 
 using SGG.RTS.Resource;
+using SGG.RTS.World;
 
 using UnityEngine;
 
@@ -41,10 +42,10 @@ namespace SGG.RTS
       private void Start()
       {
          Camera.main.orthographicSize = INITIAL_ZOOM_LVL;
-         m_GameBoardSizeTiles = World.Instance.BoardSizeInTiles;
+         m_GameBoardSizeTiles = RTSWorld.Instance.BoardSizeInTiles;
          m_TargetZoomLvl = INITIAL_ZOOM_LVL;
 
-         var pos2D = World.Instance.BoardSizeInTiles * 0.5f;
+         var pos2D = RTSWorld.Instance.BoardSizeInTiles * 0.5f;
          Camera.main.transform.position = new Vector3(pos2D.x, pos2D.y, -10);
       }
 

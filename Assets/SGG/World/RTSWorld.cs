@@ -9,6 +9,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 using JetBrains.Annotations;
 
@@ -17,9 +18,10 @@ using SGG.RTS.Unit;
 
 using UnityEngine;
 
-namespace SGG.RTS
+namespace SGG.RTS.World
 {
-   public sealed class World : MonoBehaviour
+   // ReSharper disable once InconsistentNaming
+   public sealed class RTSWorld : MonoBehaviour
    {
       #region Compile-time constants
 
@@ -31,7 +33,7 @@ namespace SGG.RTS
 
       #region Static fields
 
-      public static World Instance;
+      public static RTSWorld Instance;
 
       #endregion
 
@@ -39,6 +41,9 @@ namespace SGG.RTS
 
       [SerializeField, UsedImplicitly]
       private GameObject m_Tiles;
+
+      [SerializeField, UsedImplicitly]
+      private GameObject m_BuildingsObj;
 
       [SerializeField, UsedImplicitly]
       private GameObject m_UnitsObj;
@@ -127,21 +132,13 @@ namespace SGG.RTS
          Materials.Instance.BackgroundMaterial.color = bgColor;
       }
 
-      public void SpawnUnit(Vector2 a_Pos, Team a_Team)
+      [SuppressMessage("ReSharper", "PossibleLossOfFraction")]
+      public void SpawnUnit(AUnit a_Unit, Vector2 a_Pos)
       {
-         if (!DebugUtils.Verify(Contains(a_Pos)))
-         {
-            return;
-         }
-
-         var obj = Instantiate(Prefabs.Instance.TestUnit);
-         obj.transform.position = new Vector3(a_Pos.x, a_Pos.y, -1);
-
-         var unit = obj.GetComponent<StaveUnit>();
-         unit.Initialize(a_Team, UnitFunction.MILITARY, NoteValue.QUAVER);
-         unit.transform.parent = m_UnitsObj.transform;
-
-         Units.Add(unit);
+         Debug.Assert(Contains(a_Pos));
+         a_Unit.transform.position = new Vector3(a_Pos.x, a_Pos.y, -1);
+         a_Unit.transform.parent = m_UnitsObj.transform;
+         Units.Add(a_Unit);
       }
 
       public bool Contains(Vector2 a_Pt)

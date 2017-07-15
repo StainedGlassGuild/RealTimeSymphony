@@ -50,35 +50,6 @@ namespace SGG.RTS
          Units = new List<AUnit>();
       }
 
-      public void Add(AUnit a_Unit)
-      {
-         if (Units.Count == 0)
-         {
-            m_SelectionCreationTime = Time.time;
-         }
-
-         if (DebugUtils.Verify(!Units.Contains(a_Unit)))
-         {
-            Units.Add(a_Unit);
-         }
-
-         InGameGUI.Instance.MainPanel.UpdateSelectedContent();
-      }
-
-      public void Clear()
-      {
-         if (Units.Count == 0)
-         {
-            return;
-         }
-
-         SetUnitsColor(Units[0].Team.Color);
-         SetUnitsGlowColor(Color.clear);
-         Units.Clear();
-
-         InGameGUI.Instance.MainPanel.UpdateSelectedContent();
-      }
-
       [UsedImplicitly]
       private void Update()
       {
@@ -101,6 +72,43 @@ namespace SGG.RTS
                       0.5f;
          glowColor.a = MIN_GLOW_INTENSITY + glow * (1 - MIN_GLOW_INTENSITY);
          SetUnitsGlowColor(glowColor);
+      }
+
+      public void Add(AUnit a_Unit)
+      {
+         Debug.Assert(!Contains(a_Unit));
+
+         if (Units.Count == 0)
+         {
+            m_SelectionCreationTime = Time.time;
+         }
+
+         Units.Add(a_Unit);
+      }
+
+      public bool Contains(AUnit a_Unit)
+      {
+         return Units.Contains(a_Unit);
+      }
+
+      public void Remove(AUnit a_Unit)
+      {
+         Debug.Assert(Contains(a_Unit));
+         a_Unit.Color = Units[0].Team.Color;
+         a_Unit.GlowColor = Color.clear;
+         Units.Remove(a_Unit);
+      }
+
+      public void Clear()
+      {
+         if (Units.Count == 0)
+         {
+            return;
+         }
+
+         SetUnitsColor(Units[0].Team.Color);
+         SetUnitsGlowColor(Color.clear);
+         Units.Clear();
       }
 
       private void SetUnitsColor(Color a_Color)
