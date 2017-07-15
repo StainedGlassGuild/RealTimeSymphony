@@ -85,6 +85,8 @@ namespace SGG.RTS
       [UsedImplicitly]
       private void Update()
       {
+         bool isCursorInMainPanel = MainGUI.Instance.MainPanel.ContainsCursor;
+
          // Get the point in the world where the mouse is
          var clickPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -102,7 +104,7 @@ namespace SGG.RTS
 
          // Use a selection box after a certain distance
          if (Input.GetButton(InputNames.LEFT_CLICK) &&
-             !MainGUI.Instance.ContainsCursor &&
+             !MainGUI.Instance.MainPanel.ContainsCursor &&
              Vector2.Distance(m_SelectionBoxStartPos, clickPosWorld) > MIN_SELECTION_BOX_SIZE)
          {
             m_SelectionBox.SetActive(true);
@@ -121,7 +123,7 @@ namespace SGG.RTS
             {
                m_SelectionBox.SetActive(false);
             }
-            else if (!MainGUI.Instance.ContainsCursor)
+            else if (!isCursorInMainPanel)
             {
                GameDriver.Instance.Selection.Clear();
                var unit = FindUnitClosestToCursorWithinRange(clickPosWorld);
@@ -136,7 +138,7 @@ namespace SGG.RTS
          if (Input.GetButtonUp(InputNames.MIDDLE_CLICK))
          {
             if (!Input.GetButton(InputNames.LEFT_CLICK) &&
-                !MainGUI.Instance.ContainsCursor &&
+                !isCursorInMainPanel &&
                 Time.time - m_RightClickDownTime < CLICK_MAX_TIME_SEC)
             {
                if (GameDriver.Instance.World.Contains(clickPosWorld))
@@ -145,7 +147,7 @@ namespace SGG.RTS
                }
             }
 
-            if (!MainGUI.Instance.ContainsCursor)
+            if (!isCursorInMainPanel)
             {
                GameDriver.Instance.Selection.Clear();
             }

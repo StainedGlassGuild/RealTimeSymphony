@@ -57,7 +57,7 @@ namespace SGG.RTS
          Instance = this;
 
          // Initialize GUI
-         MainGUI.Instance.Initialize();
+         MainGUI.Instance.MainPanel.Initialize();
       }
 
       [UsedImplicitly]

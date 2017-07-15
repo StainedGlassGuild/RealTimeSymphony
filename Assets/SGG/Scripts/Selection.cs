@@ -62,7 +62,7 @@ namespace SGG.RTS
             Units.Add(a_Unit);
          }
 
-         MainGUI.Instance.UpdateSelectionPanel();
+         MainGUI.Instance.MainPanel.SelectionPanel.UpdateContent();
       }
 
       public void Clear()
@@ -76,7 +76,7 @@ namespace SGG.RTS
          SetUnitsGlowColor(Color.clear);
          Units.Clear();
 
-         MainGUI.Instance.UpdateSelectionPanel();
+         MainGUI.Instance.MainPanel.SelectionPanel.UpdateContent();
       }
 
       [UsedImplicitly]
@@ -97,7 +97,8 @@ namespace SGG.RTS
 
          // Update glow color around units
          var glowColor = new Color(1, 1, 1) - Units[0].Team.Color;
-         float glow = Mathf.Sin((Time.time - m_SelectionCreationTime) * GLOW_FREQUENCY) * 0.5f + 0.5f;
+         float glow = Mathf.Sin((Time.time - m_SelectionCreationTime) * GLOW_FREQUENCY) * 0.5f +
+                      0.5f;
          glowColor.a = MIN_GLOW_INTENSITY + glow * (1 - MIN_GLOW_INTENSITY);
          SetUnitsGlowColor(glowColor);
       }
