@@ -32,6 +32,8 @@ namespace SGG.RTS.Unit
          set { GlowRenderer.material.color = value; }
       }
 
+      public abstract string UnitTypeName { get; }
+
       public Vector2 Position
       {
          get

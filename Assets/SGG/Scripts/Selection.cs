@@ -62,7 +62,7 @@ namespace SGG.RTS
             Units.Add(a_Unit);
          }
 
-         MainGUI.Instance.MainPanel.SelectionPanel.UpdateContent();
+         MainGUI.Instance.MainPanel.UpdateSelectedContent();
       }
 
       public void Clear()
@@ -76,7 +76,7 @@ namespace SGG.RTS
          SetUnitsGlowColor(Color.clear);
          Units.Clear();
 
-         MainGUI.Instance.MainPanel.SelectionPanel.UpdateContent();
+         MainGUI.Instance.MainPanel.UpdateSelectedContent();
       }
 
       [UsedImplicitly]

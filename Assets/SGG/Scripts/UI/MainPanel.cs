@@ -90,6 +90,12 @@ namespace SGG.RTS.UI
          m_PrevContainsCursor = ContainsCursor;
       }
 
+      public void UpdateSelectedContent()
+      {
+         InfoPanel.UpdateContent();
+         SelectionPanel.UpdateContent();
+      }
+
       #endregion
    }
 }

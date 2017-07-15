@@ -24,6 +24,18 @@ namespace SGG.RTS.Unit
 
       public UnitFunction Function { get; private set; }
 
+      public override string UnitTypeName
+      {
+         get
+         {
+            string functionStr = Function.ToString();
+            string valueStr = Value.ToString();
+            functionStr = functionStr.Substring(0, 1) + functionStr.Substring(1).ToLower();
+            valueStr = valueStr.Substring(0, 1) + valueStr.Substring(1).ToLower();
+            return functionStr + " " + valueStr;
+         }
+      }
+
       #endregion
 
       #region Methods
