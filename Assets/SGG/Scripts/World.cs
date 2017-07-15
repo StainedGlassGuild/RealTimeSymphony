@@ -24,70 +24,61 @@ namespace SGG.RTS
       #region Compile-time constants
 
       private const float TILE_BORDER_SIZE = 0.05f;
-
       private const float DARKEST_BORDER_INTENSITY = 0.9f;
-
       private const float ZOOM_LVL_WHERE_BORDERS_NOT_VISIBLE = 40;
+
+      #endregion
+
+      #region Static fields
+
+      public static World Instance;
 
       #endregion
 
       #region Private fields
 
-      private Vector2UInt m_BoardSizeInTiles;
+      [SerializeField, UsedImplicitly]
+      private GameObject m_Tiles;
+
+      [SerializeField, UsedImplicitly]
+      private GameObject m_UnitsObj;
 
       #endregion
 
       #region Public fields
 
-      public List<AUnit> Units;
+      public Vector2UInt BoardSizeInTiles;
+
+      #endregion
+
+      #region Properties
+
+      public List<AUnit> Units { get; private set; }
 
       #endregion
 
       #region Methods
 
-      public bool Contains(Vector2 a_Pt)
+      [UsedImplicitly]
+      private void Start()
       {
-         return a_Pt.x > 0 && a_Pt.y > 0 &&
-                a_Pt.x < m_BoardSizeInTiles.X &&
-                a_Pt.y < m_BoardSizeInTiles.Y;
-      }
-
-      public void Initialize(Vector2UInt a_BoardSizeInTiles)
-      {
-         m_BoardSizeInTiles = a_BoardSizeInTiles;
          Units = new List<AUnit>();
 
          CreateTiles();
          CreateBorders();
-      }
 
-      private void CreateBorders()
-      {
-         var bg = GameObject.CreatePrimitive(PrimitiveType.Plane);
-         bg.name = "Background";
-         bg.transform.parent = transform;
-
-         var transf = bg.transform;
-         var size2D = (m_BoardSizeInTiles + Vector2.one * TILE_BORDER_SIZE * 0.5f) * 0.1f;
-         transf.localScale = new Vector3(size2D.x, 0, size2D.y);
-
-         transf.LookAt(Vector3.up);
-
-         var pos2D = m_BoardSizeInTiles / 2;
-         transf.position = new Vector3(pos2D.x, pos2D.y, 1);
-
-         bg.GetComponent<Renderer>().material = MaterialRepository.Instance.BackgroundMaterial;
+         Instance = this;
       }
 
       private void CreateTiles()
       {
          // Create tiles
-         Utils.ForEachElement(m_BoardSizeInTiles, a_TileCoord =>
+         Utils.ForEachElement(BoardSizeInTiles, a_TileCoord =>
          {
             // Create tile primitive
             var tile = GameObject.CreatePrimitive(PrimitiveType.Plane);
             tile.name = "Tile";
-            tile.transform.parent = transform;
+            tile.transform.parent = m_Tiles.transform;
 
             // Set tile size
             var transf = tile.transform;
@@ -101,25 +92,26 @@ namespace SGG.RTS
             transf.position = new Vector3(pos2D.x, pos2D.y);
 
             // Set tile color
-            tile.GetComponent<Renderer>().material = MaterialRepository.Instance.TileMaterial;
+            tile.GetComponent<Renderer>().material = Materials.Instance.TileMaterial;
          });
       }
 
-      public void SpawnUnit(Vector2 a_Pos, Team a_Team)
+      private void CreateBorders()
       {
-         if (!DebugUtils.Verify(Contains(a_Pos)))
-         {
-            return;
-         }
+         var bg = GameObject.CreatePrimitive(PrimitiveType.Plane);
+         bg.name = "Background";
+         bg.transform.parent = transform;
 
-         var obj = Instantiate(PrefabRepository.Instance.TestUnit);
-         obj.transform.position = new Vector3(a_Pos.x, a_Pos.y, -1);
+         var transf = bg.transform;
+         var size2D = (BoardSizeInTiles + Vector2.one * TILE_BORDER_SIZE * 0.5f) * 0.1f;
+         transf.localScale = new Vector3(size2D.x, 0, size2D.y);
 
-         var unit = obj.GetComponent<StaveUnit>();
-         unit.Initialize(a_Team, UnitFunction.MILITARY, NoteValue.QUAVER);
-         unit.transform.parent = transform;
+         transf.LookAt(Vector3.up);
 
-         Units.Add(unit);
+         var pos2D = BoardSizeInTiles / 2;
+         transf.position = new Vector3(pos2D.x, pos2D.y, 1);
+
+         bg.GetComponent<Renderer>().material = Materials.Instance.BackgroundMaterial;
       }
 
       [UsedImplicitly]
@@ -132,7 +124,31 @@ namespace SGG.RTS
                                    CameraController.MIN_ZOOM_LVL);
          var bgColor = Color.white * Mathf.Lerp(DARKEST_BORDER_INTENSITY, 1, borderDistFactor);
          bgColor.a = 1;
-         MaterialRepository.Instance.BackgroundMaterial.color = bgColor;
+         Materials.Instance.BackgroundMaterial.color = bgColor;
+      }
+
+      public void SpawnUnit(Vector2 a_Pos, Team a_Team)
+      {
+         if (!DebugUtils.Verify(Contains(a_Pos)))
+         {
+            return;
+         }
+
+         var obj = Instantiate(Prefabs.Instance.TestUnit);
+         obj.transform.position = new Vector3(a_Pos.x, a_Pos.y, -1);
+
+         var unit = obj.GetComponent<StaveUnit>();
+         unit.Initialize(a_Team, UnitFunction.MILITARY, NoteValue.QUAVER);
+         unit.transform.parent = m_UnitsObj.transform;
+
+         Units.Add(unit);
+      }
+
+      public bool Contains(Vector2 a_Pt)
+      {
+         return a_Pt.x > 0 && a_Pt.y > 0 &&
+                a_Pt.x < BoardSizeInTiles.X &&
+                a_Pt.y < BoardSizeInTiles.Y;
       }
 
       #endregion

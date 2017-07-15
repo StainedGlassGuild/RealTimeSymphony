@@ -20,7 +20,7 @@ namespace SGG.RTS.UI
 
       public void UpdateContent()
       {
-         var selectionUnits = GameDriver.Instance.Selection.Units;
+         var selectionUnits = GameLogic.Instance.Selection.Units;
 
          for (int i = selectionUnits.Count; i < transform.childCount; ++i)
          {
@@ -29,7 +29,7 @@ namespace SGG.RTS.UI
 
          foreach (var unit in selectionUnits)
          {
-            var selectElem = Instantiate(PrefabRepository.Instance.GameObjSelectionElem);
+            var selectElem = Instantiate(Prefabs.Instance.GameObjSelectionElem);
             selectElem.transform.SetParent(transform, false);
             selectElem.name += " [" + unit.name + "]";
          }

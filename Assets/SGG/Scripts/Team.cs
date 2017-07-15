@@ -12,11 +12,11 @@ using UnityEngine;
 
 namespace SGG.RTS
 {
-   public sealed class Team
+   public sealed class Team : MonoBehaviour
    {
       #region Public fields
 
-      public Color Color = Color.cyan;
+      public Color Color;
 
       #endregion
    }

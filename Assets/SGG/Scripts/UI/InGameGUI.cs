@@ -3,7 +3,7 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: PrefabRepository.cs
+// File: MainGUI.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -12,21 +12,20 @@ using JetBrains.Annotations;
 
 using UnityEngine;
 
-namespace SGG.RTS.Resource
+namespace SGG.RTS.UI
 {
-   public sealed class PrefabRepository : MonoBehaviour
+   // ReSharper disable once InconsistentNaming
+   public sealed class InGameGUI : MonoBehaviour
    {
       #region Static fields
 
-      public static PrefabRepository Instance;
+      public static InGameGUI Instance;
 
       #endregion
 
       #region Public fields
 
-      public GameObject TestUnit;
-      public GameObject SelectionBox;
-      public GameObject GameObjSelectionElem;
+      public MainPanel MainPanel;
 
       #endregion
 

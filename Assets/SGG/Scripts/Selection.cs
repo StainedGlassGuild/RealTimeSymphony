@@ -36,9 +36,9 @@ namespace SGG.RTS
 
       #endregion
 
-      #region Public fields
+      #region Properties
 
-      public List<AUnit> Units;
+      public List<AUnit> Units { get; private set; }
 
       #endregion
 
@@ -62,7 +62,7 @@ namespace SGG.RTS
             Units.Add(a_Unit);
          }
 
-         MainGUI.Instance.MainPanel.UpdateSelectedContent();
+         InGameGUI.Instance.MainPanel.UpdateSelectedContent();
       }
 
       public void Clear()
@@ -76,7 +76,7 @@ namespace SGG.RTS
          SetUnitsGlowColor(Color.clear);
          Units.Clear();
 
-         MainGUI.Instance.MainPanel.UpdateSelectedContent();
+         InGameGUI.Instance.MainPanel.UpdateSelectedContent();
       }
 
       [UsedImplicitly]

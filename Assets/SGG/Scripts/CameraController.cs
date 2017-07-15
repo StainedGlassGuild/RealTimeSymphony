@@ -37,13 +37,14 @@ namespace SGG.RTS
 
       #region Methods
 
-      public void Initialize(Vector2UInt a_GameBoardSizeTiles, Vector2UInt a_StartTile)
+      [UsedImplicitly]
+      private void Start()
       {
          Camera.main.orthographicSize = INITIAL_ZOOM_LVL;
-         m_GameBoardSizeTiles = a_GameBoardSizeTiles;
+         m_GameBoardSizeTiles = World.Instance.BoardSizeInTiles;
          m_TargetZoomLvl = INITIAL_ZOOM_LVL;
 
-         var pos2D = a_StartTile + Vector2.one * 0.5f;
+         var pos2D = World.Instance.BoardSizeInTiles * 0.5f;
          Camera.main.transform.position = new Vector3(pos2D.x, pos2D.y, -10);
       }
 

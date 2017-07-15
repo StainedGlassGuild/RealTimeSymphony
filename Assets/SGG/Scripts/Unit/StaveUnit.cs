@@ -45,11 +45,11 @@ namespace SGG.RTS.Unit
          Function = a_Function;
          Value = a_Value;
 
-         Func<SpriteRepository.SpriteType, Sprite> getSprite = a_Type =>
-            SpriteRepository.Instance.GetStaveUnitSprite(a_Function, a_Value, a_Type);
+         Func<Sprites.SpriteType, Sprite> getSprite = a_Type =>
+            Sprites.Instance.GetStaveUnitSprite(a_Function, a_Value, a_Type);
 
-         Initialize(a_Team, getSprite(SpriteRepository.SpriteType.MAIN),
-            getSprite(SpriteRepository.SpriteType.GLOW));
+         Initialize(a_Team, getSprite(Sprites.SpriteType.MAIN),
+            getSprite(Sprites.SpriteType.GLOW));
       }
 
       #endregion

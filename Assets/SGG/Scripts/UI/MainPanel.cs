@@ -10,8 +10,6 @@
 
 using JetBrains.Annotations;
 
-using SGG.FXG.UI;
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,11 +54,8 @@ namespace SGG.RTS.UI
       private void Start()
       {
          m_PrevContainsCursor = ContainsCursor;
-      }
 
-      public void Initialize()
-      {
-         var panelColor = GameDriver.Instance.PlayerTeam.Color;
+         var panelColor = GameLogic.Instance.PlayerTeam.Color;
          panelColor *= m_MainPanelDarkness;
          panelColor += new Color(1, 1, 1, 0) * m_MainPanelDarkness;
          panelColor.a = m_MainPanelOpacity;

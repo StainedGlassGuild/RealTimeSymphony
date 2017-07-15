@@ -3,7 +3,7 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: MaterialRepository.cs
+// File: GameLogic.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -12,20 +12,22 @@ using JetBrains.Annotations;
 
 using UnityEngine;
 
-namespace SGG.RTS.Resource
+namespace SGG.RTS
 {
-   public sealed class MaterialRepository : MonoBehaviour
+   public sealed class GameLogic : MonoBehaviour
    {
       #region Static fields
 
-      public static MaterialRepository Instance;
+      public static GameLogic Instance;
 
       #endregion
 
       #region Public fields
 
-      public Material TileMaterial;
-      public Material BackgroundMaterial;
+      public Team PlayerTeam;
+      public Selection Selection;
+      public CameraController CameraController;
+      public MouseCursorHandler CursorHandler;
 
       #endregion
 
