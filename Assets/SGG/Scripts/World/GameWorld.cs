@@ -3,7 +3,7 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: World.cs
+// File: GameWorld.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -13,8 +13,9 @@ using System.Diagnostics.CodeAnalysis;
 
 using JetBrains.Annotations;
 
-using SGG.RTS.Resource;
+using SGG.RTS.Entity.Building;
 using SGG.RTS.Entity.Unit;
+using SGG.RTS.Resource;
 using SGG.RTS.UI.Input;
 using SGG.RTS.Utils;
 
@@ -61,6 +62,7 @@ namespace SGG.RTS.World
       #region Properties
 
       public List<AUnit> Units { get; private set; }
+      public List<Building> Buildings { get; private set; }
 
       #endregion
 
@@ -70,6 +72,7 @@ namespace SGG.RTS.World
       private void Start()
       {
          Units = new List<AUnit>();
+         Buildings = new List<Building>();
 
          CreateTiles();
          CreateBorders();
@@ -98,7 +101,7 @@ namespace SGG.RTS.World
             var pos2D = a_TileCoord + Vector2.one * 0.5f;
             transf.position = new Vector3(pos2D.x, pos2D.y);
 
-            // Set tile color
+            // Set tile material
             tile.GetComponent<Renderer>().material = Materials.Instance.TileMaterial;
          });
       }
@@ -141,6 +144,13 @@ namespace SGG.RTS.World
          a_Unit.transform.position = new Vector3(a_Pos.x, a_Pos.y, -1);
          a_Unit.transform.parent = m_UnitsObj.transform;
          Units.Add(a_Unit);
+      }
+
+      public void SpawnBuilding(Building a_Building, Vector2UInt a_LLCornerPos)
+      {
+         a_Building.transform.position = new Vector3(a_LLCornerPos.X, a_LLCornerPos.Y, -1);
+         a_Building.transform.parent = m_BuildingsObj.transform;
+         Buildings.Add(a_Building);
       }
 
       public bool Contains(Vector2 a_Pt)

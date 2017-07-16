@@ -12,6 +12,7 @@ using System;
 
 using JetBrains.Annotations;
 
+using SGG.RTS.Entity.Building;
 using SGG.RTS.Entity.Unit;
 using SGG.RTS.Resource;
 using SGG.RTS.Utils;
@@ -49,6 +50,9 @@ namespace SGG.RTS.World
             switch (entityType)
             {
             case EntityType.BUILDING:
+               var building = new GameObject("Building", typeof(Building)).GetComponent<Building>();
+               building.Size = new Vector2UInt(2, 3);
+               GameWorld.Instance.SpawnBuilding(building, pos);
                break;
 
             case EntityType.UNIT:
@@ -65,11 +69,13 @@ namespace SGG.RTS.World
                   unit.Initialize(GameLogic.Instance.PlayerTeam, function, value);
                   GameWorld.Instance.SpawnUnit(unit, pos.ToVector2() + Vector2.one * 0.5f);
                   break;
+
                default:
                   throw new ArgumentOutOfRangeException();
                }
 
                break;
+
             default:
                throw new ArgumentOutOfRangeException();
             }

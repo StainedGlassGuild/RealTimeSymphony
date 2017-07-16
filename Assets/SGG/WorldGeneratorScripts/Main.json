@@ -2,19 +2,19 @@
     "Objects": [
         {
             "Type": "Building.Metronome",
-            "Pos": [ 15, 16 ]
+            "Pos": [ 27, 18 ]
         },
         {
             "Type": "Unit.Stave.Military.Quaver",
-            "Pos": [ 34, 12 ]
+            "Pos": [ 24, 17 ]
         },
         {
             "Type": "Unit.Stave.Military.Quaver",
-            "Pos": [ 36, 11 ]
+            "Pos": [ 26, 16 ]
         },
         {
             "Type": "Unit.Stave.Military.Quaver",
-            "Pos": [ 34, 14 ]
+            "Pos": [ 24, 19 ]
         }
     ]
 }
