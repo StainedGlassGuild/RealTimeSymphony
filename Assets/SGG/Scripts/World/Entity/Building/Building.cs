@@ -14,13 +14,23 @@ using SGG.RTS.Utils;
 
 using UnityEngine;
 
-namespace SGG.RTS.Entity.Building
+namespace SGG.RTS.World.Entity.Building
 {
-   public sealed class Building : MonoBehaviour
+   public sealed class Building : AEntity
    {
       #region Properties
 
       public Vector2UInt Size { get; set; }
+
+      public override string Name
+      {
+         get { return "TempName"; }
+      }
+
+      public override EntityType Type
+      {
+         get { return EntityType.BUILDING; }
+      }
 
       #endregion
 

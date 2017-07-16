@@ -13,11 +13,11 @@ using System.Diagnostics.CodeAnalysis;
 
 using JetBrains.Annotations;
 
-using SGG.RTS.Entity.Building;
-using SGG.RTS.Entity.Unit;
 using SGG.RTS.Resource;
 using SGG.RTS.UI.Input;
 using SGG.RTS.Utils;
+using SGG.RTS.World.Entity.Building;
+using SGG.RTS.World.Entity.Unit;
 
 using UnityEngine;
 

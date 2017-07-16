@@ -14,7 +14,7 @@ using SGG.RTS.Resource;
 
 using UnityEngine;
 
-namespace SGG.RTS.Entity.Unit
+namespace SGG.RTS.World.Entity.Unit
 {
    public sealed class StaveUnit : AUnit
    {
@@ -24,7 +24,7 @@ namespace SGG.RTS.Entity.Unit
 
       public UnitFunction Function { get; private set; }
 
-      public override string UnitTypeName
+      public override string Name
       {
          get
          {

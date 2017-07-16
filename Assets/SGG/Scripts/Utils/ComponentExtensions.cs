@@ -10,7 +10,7 @@
 
 using UnityEngine;
 
-namespace SGG.RTS
+namespace SGG.RTS.Utils
 {
    public static class ComponentExtensions
    {

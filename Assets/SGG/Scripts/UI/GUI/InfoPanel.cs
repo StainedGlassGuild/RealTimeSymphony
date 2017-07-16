@@ -38,7 +38,7 @@ namespace SGG.RTS.UI.GUI
             return;
          }
 
-         m_ElementName.text = selectionUnits[0].UnitTypeName;
+         m_ElementName.text = selectionUnits[0].Name;
       }
 
       #endregion

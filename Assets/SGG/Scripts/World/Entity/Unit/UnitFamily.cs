@@ -8,7 +8,7 @@
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace SGG.RTS.Entity.Unit
+namespace SGG.RTS.World.Entity.Unit
 {
    public enum UnitFamily
    {

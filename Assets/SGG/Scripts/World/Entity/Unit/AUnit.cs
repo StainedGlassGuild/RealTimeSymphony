@@ -10,9 +10,9 @@
 
 using UnityEngine;
 
-namespace SGG.RTS.Entity.Unit
+namespace SGG.RTS.World.Entity.Unit
 {
-   public abstract class AUnit : MonoBehaviour
+   public abstract class AUnit : AEntity
    {
       #region Properties
 
@@ -31,8 +31,6 @@ namespace SGG.RTS.Entity.Unit
          get { return GlowRenderer.material.color; }
          set { GlowRenderer.material.color = value; }
       }
-
-      public abstract string UnitTypeName { get; }
 
       public Vector2 Position
       {
@@ -53,6 +51,11 @@ namespace SGG.RTS.Entity.Unit
       private SpriteRenderer GlowRenderer
       {
          get { return transform.GetChild(0).GetComponentInChildren<SpriteRenderer>(); }
+      }
+
+      public override EntityType Type
+      {
+         get { return EntityType.UNIT; }
       }
 
       #endregion

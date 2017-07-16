@@ -10,10 +10,10 @@
 
 using JetBrains.Annotations;
 
-using SGG.RTS.Entity.Unit;
 using SGG.RTS.Resource;
 using SGG.RTS.UI.GUI;
 using SGG.RTS.World;
+using SGG.RTS.World.Entity.Unit;
 
 using UnityEngine;
 

@@ -3,16 +3,23 @@
 // Copyright (c) 2017 Stained Glass Guild
 // See file "LICENSE.txt" at project root for complete license
 // ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
-// File: StaveUnitType.cs
+// File: AEntity.cs
 // Creation: 2017-07
 // Author: Jérémie Coulombe
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-namespace SGG.RTS.World.Entity.Unit
+using UnityEngine;
+
+namespace SGG.RTS.World.Entity
 {
-   public enum UnitFunction
+   public abstract class AEntity : MonoBehaviour
    {
-      MILITARY,
-      CIVIL
+      #region Properties
+
+      public abstract string Name { get; }
+
+      public abstract EntityType Type { get; }
+
+      #endregion
    }
 }
