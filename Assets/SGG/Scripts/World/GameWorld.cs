@@ -16,6 +16,7 @@ using JetBrains.Annotations;
 using SGG.RTS.Resource;
 using SGG.RTS.UI.Input;
 using SGG.RTS.Utils;
+using SGG.RTS.World.Entity;
 using SGG.RTS.World.Entity.Building;
 using SGG.RTS.World.Entity.Unit;
 
@@ -63,6 +64,17 @@ namespace SGG.RTS.World
 
       public List<AUnit> Units { get; private set; }
       public List<Building> Buildings { get; private set; }
+
+      public List<AEntity> Entities
+      {
+         get
+         {
+            var entities = new List<AEntity>();
+            entities.AddRange(Units.ToArray());
+            entities.AddRange(Buildings.ToArray());
+            return entities;
+         }
+      }
 
       #endregion
 
@@ -148,7 +160,8 @@ namespace SGG.RTS.World
 
       public void SpawnBuilding(Building a_Building, Vector2UInt a_LLCornerPos)
       {
-         a_Building.transform.position = new Vector3(a_LLCornerPos.X, a_LLCornerPos.Y, -1);
+         Vector3 offset = a_Building.Size.ToVector2() * 0.5f;
+         a_Building.transform.position = new Vector3(a_LLCornerPos.X, a_LLCornerPos.Y, -1) + offset;
          a_Building.transform.parent = m_BuildingsObj.transform;
          Buildings.Add(a_Building);
       }

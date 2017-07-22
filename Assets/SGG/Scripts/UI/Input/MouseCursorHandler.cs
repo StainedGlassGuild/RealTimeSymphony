@@ -13,6 +13,7 @@ using JetBrains.Annotations;
 using SGG.RTS.Resource;
 using SGG.RTS.UI.GUI;
 using SGG.RTS.World;
+using SGG.RTS.World.Entity;
 using SGG.RTS.World.Entity.Unit;
 
 using UnityEngine;
@@ -45,24 +46,24 @@ namespace SGG.RTS.UI.Input
 
       #region Static methods
 
-      private static AUnit FindUnitClosestToCursorWithinRange(Vector2 a_ClickPosWorld)
+      private static AEntity FindEntityClosestToCursorWithinRange(Vector2 a_ClickPosWorld)
       {
          float minDist = float.PositiveInfinity;
-         AUnit closestUnit = null;
+         AEntity closestEntity = null;
 
-         foreach (var unit in GameWorld.Instance.Units)
+         foreach (var entity in GameWorld.Instance.Entities)
          {
-            float dist = Vector2.Distance(unit.Position, a_ClickPosWorld);
+            float dist = Vector2.Distance(entity.Position, a_ClickPosWorld);
             if (dist < minDist)
             {
                minDist = dist;
-               closestUnit = unit;
+               closestEntity = entity;
             }
          }
 
-         if (closestUnit != null && minDist < UNIT_SELECTION_RADIUS)
+         if (closestEntity != null && minDist < UNIT_SELECTION_RADIUS)
          {
-            return closestUnit;
+            return closestEntity;
          }
 
          return null;
@@ -127,10 +128,10 @@ namespace SGG.RTS.UI.Input
             else if (!isCursorInMainPanel)
             {
                Inputs.Instance.Selection.Clear();
-               var unit = FindUnitClosestToCursorWithinRange(clickPosWorld);
-               if (unit != null)
+               var entity = FindEntityClosestToCursorWithinRange(clickPosWorld);
+               if (entity != null)
                {
-                  Inputs.Instance.Selection.Add(unit);
+                  Inputs.Instance.Selection.Add(entity);
                }
                InGameGUI.Instance.MainPanel.UpdateSelectedContent();
             }
@@ -185,21 +186,21 @@ namespace SGG.RTS.UI.Input
 
          var boxBounds = new Bounds(boxCenter, boxSize);
 
-         // Update objects in selection
-         foreach (var unit in GameWorld.Instance.Units)
+         // Update entities in selection
+         foreach (var entities in GameWorld.Instance.Entities)
          {
-            if (boxBounds.Contains(unit.Position))
+            if (boxBounds.Contains(entities.Position))
             {
-               if (!Inputs.Instance.Selection.Contains(unit))
+               if (!Inputs.Instance.Selection.Contains(entities))
                {
-                  Inputs.Instance.Selection.Add(unit);
+                  Inputs.Instance.Selection.Add(entities);
                }
             }
             else
             {
-               if (Inputs.Instance.Selection.Contains(unit))
+               if (Inputs.Instance.Selection.Contains(entities))
                {
-                  Inputs.Instance.Selection.Remove(unit);
+                  Inputs.Instance.Selection.Remove(entities);
                }
             }
          }

@@ -50,8 +50,8 @@ namespace SGG.RTS.World
             switch (entityType)
             {
             case EntityType.BUILDING:
-               var building = new GameObject("Building", typeof(Building)).GetComponent<Building>();
-               building.Size = new Vector2UInt(2, 3);
+               var building = Instantiate(Prefabs.Instance.Building).GetComponent<Building>();
+               building.Initialize(GameLogic.Instance.PlayerTeam, new Vector2UInt(2, 3));
                GameWorld.Instance.SpawnBuilding(building, pos);
                break;
 

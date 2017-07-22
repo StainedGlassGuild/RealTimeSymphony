@@ -26,7 +26,7 @@ namespace SGG.RTS.UI.GUI
             Destroy(transform.GetChild(i).gameObject);
          }
 
-         foreach (var unit in Inputs.Instance.Selection.Units)
+         foreach (var unit in Inputs.Instance.Selection.Entities)
          {
             var selectElem = Instantiate(Prefabs.Instance.GameObjSelectionElem);
             selectElem.transform.SetParent(transform, false);

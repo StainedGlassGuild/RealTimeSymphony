@@ -12,46 +12,9 @@ using UnityEngine;
 
 namespace SGG.RTS.World.Entity.Unit
 {
-   public abstract class AUnit : AEntity
+   public abstract class AUnit : ASpriteEntity
    {
       #region Properties
-
-      public Vector2 Destination { get; set; }
-
-      public Team Team { get; set; }
-
-      public Color Color
-      {
-         get { return MainRenderer.material.color; }
-         set { MainRenderer.material.color = value; }
-      }
-
-      public Color GlowColor
-      {
-         get { return GlowRenderer.material.color; }
-         set { GlowRenderer.material.color = value; }
-      }
-
-      public Vector2 Position
-      {
-         get
-         {
-            var pos3D = transform.position;
-            return new Vector2(pos3D.x, pos3D.y);
-         }
-
-         set { transform.position = value; }
-      }
-
-      private SpriteRenderer MainRenderer
-      {
-         get { return GetComponent<SpriteRenderer>(); }
-      }
-
-      private SpriteRenderer GlowRenderer
-      {
-         get { return transform.GetChild(0).GetComponentInChildren<SpriteRenderer>(); }
-      }
 
       public override EntityType Type
       {
@@ -62,12 +25,9 @@ namespace SGG.RTS.World.Entity.Unit
 
       #region Methods
 
-      protected void Initialize(Team a_Team, Sprite a_MainSprite, Sprite a_GlowSprite)
+      public new void Initialize(Team a_Team, Sprite a_MainSprite, Sprite a_GlowSprite)
       {
-         Team = a_Team;
-         Color = a_Team.Color;
-         MainRenderer.sprite = a_MainSprite;
-         GlowRenderer.sprite = a_GlowSprite;
+         base.Initialize(a_Team, a_MainSprite, a_GlowSprite);
       }
 
       #endregion

@@ -12,15 +12,13 @@ using JetBrains.Annotations;
 
 using SGG.RTS.Utils;
 
-using UnityEngine;
-
 namespace SGG.RTS.World.Entity.Building
 {
-   public sealed class Building : AEntity
+   public sealed class Building : ASpriteEntity
    {
       #region Properties
 
-      public Vector2UInt Size { get; set; }
+      public Vector2UInt Size { get; private set; }
 
       public override string Name
       {
@@ -39,27 +37,17 @@ namespace SGG.RTS.World.Entity.Building
       [UsedImplicitly]
       private void Start()
       {
-         Algorithms.ForEachElement(Size, a_TileCoord =>
-         {
-            // Create building tile primitive
-            var tile = GameObject.CreatePrimitive(PrimitiveType.Plane);
-            tile.name = "Building Tile";
-            tile.transform.parent = transform;
+         // Set building tile size
+         var scale = transform.localScale;
+         scale.x *= Size.X;
+         scale.y *= Size.Y;
+         transform.localScale = scale;
+      }
 
-            // Set building tile size
-            var transf = tile.transform;
-            transf.localScale = Vector3.one * 0.1f;
-
-            // Set building tile rotation
-            transf.LookAt(Vector3.up);
-
-            // Set building tile position
-            var pos2D = a_TileCoord + Vector2.one * 0.5f;
-            transf.localPosition = new Vector3(pos2D.x, pos2D.y);
-
-            // Set building color
-            tile.GetComponent<Renderer>().material.color = Color.green;
-         });
+      public void Initialize(Team a_Team, Vector2UInt a_Size)
+      {
+         Initialize(a_Team, MainRenderer.sprite, GlowRenderer.sprite);
+         Size = a_Size;
       }
 
       #endregion

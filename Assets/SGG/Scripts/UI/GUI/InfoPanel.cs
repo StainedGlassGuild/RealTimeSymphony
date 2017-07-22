@@ -30,7 +30,7 @@ namespace SGG.RTS.UI.GUI
 
       public void UpdateContent()
       {
-         var selectionUnits = Inputs.Instance.Selection.Units;
+         var selectionUnits = Inputs.Instance.Selection.Entities;
 
          if (selectionUnits.Count != 1)
          {
